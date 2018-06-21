@@ -1,0 +1,10 @@
+server.port: 9003
+
+spring:
+  aop:
+    proxy-target-class: true
+  redis:
+    password: password
+    sentinel:
+      master: master
+      nodes: 211.49.172.81:32773
