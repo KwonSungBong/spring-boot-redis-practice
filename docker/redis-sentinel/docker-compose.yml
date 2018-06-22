@@ -24,7 +24,7 @@ services:
     links:
       - master
     ports:
-      - "26379"
+      - "32801:26379"
   sentine2:
     image: lgatica/redis-sentinel
     environment:
@@ -34,7 +34,7 @@ services:
     links:
       - master
     ports:
-      - "26379"
+      - "32802:26379"
   sentine3:
     image: lgatica/redis-sentinel
     environment:
@@ -44,4 +44,4 @@ services:
     links:
       - master
     ports:
-      - "26379"
+      - "32803:26379"
