@@ -26,24 +26,10 @@ public class RedisCacheConfig {
   @Value(CACHE_TTL)
   private Long cacheBlogTimeToLive;
 
-//  @Bean
-//  public RedisConnectionFactory jedisConnectionFactory() {
-////    RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration() .master("mymaster")
-////      .sentinel("127.0.0.1", 26379).sentinel("127.0.0.1", 26380).sentinel("127.0.0.1", 26381);
-////    RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration().master("mymaster")
-////            .sentinel("211.49.172.81", 26379);
-////    JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(sentinelConfig);
-//
-//    JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-//    jedisConnectionFactory.setHostName("211.49.172.81");
-//    jedisConnectionFactory.setPort(6379);
-//    jedisConnectionFactory.setUsePool(true);
-//    jedisConnectionFactory.setPassword("redis1234");
-//    return jedisConnectionFactory;
-//  }
-
   @Bean
   public RedisConnectionFactory jedisConnectionFactory() {
+//    RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration().master("mymaster")
+//            .sentinel("58.120.202.172", 8000).sentinel("58.120.202.172", 8001).sentinel("58.120.202.172", 8002);
     RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration().master("mymaster")
             .sentinel("192.168.35.160", 8000).sentinel("192.168.35.160", 8001).sentinel("192.168.35.160", 8002);
     JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(sentinelConfig);

@@ -3,6 +3,7 @@ server.port: 9004
 spring:
   redis:
     sentinel:
-      master: master
-      password: redis1234
-      nodes: 211.49.172.81:32800,211.49.172.81:32801,211.49.172.81:32802
+      master: mymaster
+      password: mypassword
+      nodes: 192.168.35.160:8000,192.168.35.160:8001,192.168.35.160:8002
+#      nodes: 58.120.202.172:8000,58.120.202.172:8001,58.120.202.172:8002

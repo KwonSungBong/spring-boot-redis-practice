@@ -4,7 +4,8 @@ spring:
   aop:
     proxy-target-class: true
   redis:
-    password: password
+    password: mypassword
     sentinel:
-      master: master
-      nodes: 211.49.172.81:32797,211.49.172.81:32798,211.49.172.81:32799
+      master: mymaster
+      nodes: 192.168.35.160:8000,192.168.35.160:8001,192.168.35.160:8002
+#      nodes: 58.120.202.172:8000,58.120.202.172:8001,58.120.202.172:8002
