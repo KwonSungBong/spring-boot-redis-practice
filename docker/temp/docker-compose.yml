@@ -3,12 +3,12 @@ version: '2'
 services:
   master:
     image: redis:4.0.9-alpine
-    command: redis-server --appendonly yes --masterauth password --requirepass password
+    command: redis-server --appendonly yes --masterauth $REDIS_PASSWORD --requirepass $REDIS_PASSWORD
     volumes:
       - ./data/master:/data
   slave:
     image: redis:4.0.9-alpine
-    command: redis-server --appendonly yes --slaveof master 6379 --masterauth password --requirepass password
+    command: redis-server --appendonly yes --slaveof master 6379 --masterauth $REDIS_PASSWORD --requirepass $REDIS_PASSWORD
     volumes:
       - ./data/slave:/data
     depends_on:
@@ -18,11 +18,10 @@ services:
   sentinel:
     image: lgatica/redis-sentinel
     environment:
-      REDIS_PASSWORD: password
+      REDIS_PASSWORD: $REDIS_PASSWORD
     depends_on:
       - master
     links:
       - master
     ports:
       - "26379"
-#      - "32801:26379"

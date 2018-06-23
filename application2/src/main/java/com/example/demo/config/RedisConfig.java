@@ -52,8 +52,8 @@ public class RedisConfig {
     public JedisSentinelPool redisSentinelPool(JedisPoolConfig jedisPoolConfig){
         Set<String> sentinelSet = new HashSet<>();
         sentinelSet.add(getProp(SENTINEL_M1));
-//        sentinelSet.add(getProp(SENTINEL_M2));
-//        sentinelSet.add(getProp(SENTINEL_M3));
+        sentinelSet.add(getProp(SENTINEL_M2));
+        sentinelSet.add(getProp(SENTINEL_M3));
 
         return new JedisSentinelPool(
                 getProp(REDIS_MASTER)

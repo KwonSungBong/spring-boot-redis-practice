@@ -7,4 +7,4 @@ spring:
     password: password
     sentinel:
       master: master
-      nodes: 211.49.172.81:32773
+      nodes: 211.49.172.81:32797,211.49.172.81:32798,211.49.172.81:32799

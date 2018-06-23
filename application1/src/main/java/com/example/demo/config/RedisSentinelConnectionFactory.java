@@ -24,44 +24,44 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 	private int port = Protocol.DEFAULT_PORT;
 	private int timeout = Protocol.DEFAULT_TIMEOUT;
 	private String password;
-	private boolean usePool = false;	
+	private boolean usePool = false;
 	private Pool<Jedis> pool;
 	private JedisSentinelPool sentinelPool;
-	
+
 	private JedisPoolConfig poolConfig = new JedisPoolConfig();
 	private int dbIndex = 0;
 	private boolean convertPipelineAndTxResults = true;
-	
+
 	/**
 	 * Constructs a new <code>JedisConnectionFactory</code> instance with default settings (default connection pooling, no
 	 * shard information).
 	 */
 	public RedisSentinelConnectionFactory() {
 	}
-	
+
 	/**
 	 * Constructs a new <code>JedisConnectionFactory</code> instance. Will override the other connection parameters passed
 	 * to the factory.
-	 * 
+	 *
 	 * @param shardInfo shard information
 	 */
 	public RedisSentinelConnectionFactory(JedisShardInfo shardInfo){
 		this.shardInfo = shardInfo;
 	}
-	
+
 	/**
 	 * Constructs a new <code>JedisConnectionFactory</code> instance using the given pool configuration.
-	 * 
+	 *
 	 * @param poolConfig pool configuration
 	 */
 	public RedisSentinelConnectionFactory(JedisPoolConfig poolConfig){
 		this.poolConfig = poolConfig;
 	}
-	
+
 	/**
 	 * Returns a Jedis instance to be used as a Redis connection. The instance can be newly created or retrieved from a
 	 * pool.
-	 * 
+	 *
 	 * @return Jedis instance ready for wrapping into a {@link RedisConnection}.
 	 */
 	public Jedis fetchJedisConnector() {
@@ -74,22 +74,22 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 			jedis.connect();
 			return jedis;
 		} catch (Exception ex) {
-			
+
 			throw new RedisConnectionFailureException("Cannot get Jedis connection", ex);
 		}
 	}
-	
+
 	/**
 	 * Post process a newly retrieved connection. Useful for decorating or executing initialization commands on a new
 	 * connection. This implementation simply returns the connection.
-	 * 
+	 *
 	 * @param connection
 	 * @return processed connection
 	 */
 	protected JedisConnection postProcessConnection(JedisConnection connection) {
 		return connection;
 	}
-	
+
 	@Override
 	public DataAccessException translateExceptionIfPossible(
 			RuntimeException arg0) {
@@ -104,12 +104,12 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 		connection.setConvertPipelineAndTxResults(convertPipelineAndTxResults);
 		return postProcessConnection(connection);
 	}
-	
+
 	/**
 	 * Specifies if pipelined results should be converted to the expected data type. If false, results of
 	 * {@link JedisConnection#closePipeline()} and {@link JedisConnection#exec()} will be of the type returned by the
 	 * Jedis driver
-	 * 
+	 *
 	 * @return Whether or not to convert pipeline and tx results
 	 */
 	@Override
@@ -121,7 +121,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 	 * Specifies if pipelined results should be converted to the expected data type. If false, results of
 	 * {@link JedisConnection#closePipeline()} and {@link JedisConnection#exec()} will be of the type returned by the
 	 * Jedis driver
-	 * 
+	 *
 	 * @param convertPipelineAndTxResults Whether or not to convert pipeline and tx results
 	 */
 	public void setConvertPipelineAndTxResults(boolean convertPipelineAndTxResults) {
@@ -139,12 +139,12 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 			}
 			pool = null;
 		}
-		
+
 	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		
+
 		if (shardInfo == null) {
 			shardInfo = new JedisShardInfo(hostName, port);
 
@@ -158,7 +158,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 			}
 		}
 
-		
+
 		if (usePool == true && pool == null) {
 			HostAndPort host = sentinelPool.getCurrentHostMaster();
 			pool = new JedisPool(poolConfig, host.getHost(), host.getPort(), shardInfo.getConnectionTimeout(),
@@ -168,7 +168,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Returns the Redis hostName.
-	 * 
+	 *
 	 * @return Returns the hostName
 	 */
 	public String getHostName() {
@@ -177,7 +177,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Sets the Redis hostName.
-	 * 
+	 *
 	 * @param hostName The hostName to set.
 	 */
 	public void setHostName(String hostName) {
@@ -186,7 +186,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Returns the password used for authenticating with the Redis server.
-	 * 
+	 *
 	 * @return password for authentication
 	 */
 	public String getPassword() {
@@ -195,7 +195,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Sets the password used for authenticating with the Redis server.
-	 * 
+	 *
 	 * @param password the password to set
 	 */
 	public void setPassword(String password) {
@@ -204,7 +204,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Returns the port used to connect to the Redis instance.
-	 * 
+	 *
 	 * @return Redis port.
 	 */
 	public int getPort() {
@@ -214,7 +214,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Sets the port used to connect to the Redis instance.
-	 * 
+	 *
 	 * @param port Redis port
 	 */
 	public void setPort(int port) {
@@ -223,7 +223,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Returns the shardInfo.
-	 * 
+	 *
 	 * @return Returns the shardInfo
 	 */
 	public JedisShardInfo getShardInfo() {
@@ -232,7 +232,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Sets the shard info for this factory.
-	 * 
+	 *
 	 * @param shardInfo The shardInfo to set.
 	 */
 	public void setShardInfo(JedisShardInfo shardInfo) {
@@ -249,7 +249,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Returns the timeout.
-	 * 
+	 *
 	 * @return Returns the timeout
 	 */
 	public int getTimeout() {
@@ -265,7 +265,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Indicates the use of a connection pool.
-	 * 
+	 *
 	 * @return Returns the use of connection pooling.
 	 */
 	public boolean getUsePool() {
@@ -274,7 +274,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Turns on or off the use of connection pooling.
-	 * 
+	 *
 	 * @param usePool The usePool to set.
 	 */
 	public void setUsePool(boolean usePool) {
@@ -283,7 +283,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Returns the poolConfig.
-	 * 
+	 *
 	 * @return Returns the poolConfig
 	 */
 	public JedisPoolConfig getPoolConfig() {
@@ -292,7 +292,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Sets the pool configuration for this factory.
-	 * 
+	 *
 	 * @param poolConfig The poolConfig to set.
 	 */
 	public void setPoolConfig(JedisPoolConfig poolConfig) {
@@ -301,7 +301,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Returns the index of the database.
-	 * 
+	 *
 	 * @return Returns the database index
 	 */
 	public int getDatabase() {
@@ -310,7 +310,7 @@ public class RedisSentinelConnectionFactory implements InitializingBean, Disposa
 
 	/**
 	 * Sets the index of the database used by this connection factory. Default is 0.
-	 * 
+	 *
 	 * @param index database index
 	 */
 	public void setDatabase(int index) {
