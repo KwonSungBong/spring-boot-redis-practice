@@ -226,6 +226,13 @@ sudo /etc/init.d/redis_7001 stop
 sudo /etc/init.d/redis_7002 stop
 sudo /etc/init.d/redis_7003 stop
 
+
+redis-cli -p 27000 -a mypassword
+redis-cli -p 27001 -a mypassword
+redis-cli -p 27002 -a mypassword
+shutdown
+quit
+
 sudo /etc/init.d/sentinel_27000 stop
 sudo /etc/init.d/sentinel_27001 stop
 sudo /etc/init.d/sentinel_27002 stop

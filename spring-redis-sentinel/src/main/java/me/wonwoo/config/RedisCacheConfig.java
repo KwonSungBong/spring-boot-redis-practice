@@ -28,10 +28,8 @@ public class RedisCacheConfig {
 
   @Bean
   public RedisConnectionFactory jedisConnectionFactory() {
-//    RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration().master("mymaster")
-//            .sentinel("58.120.202.172", 8000).sentinel("58.120.202.172", 8001).sentinel("58.120.202.172", 8002);
     RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration().master("mymaster")
-            .sentinel("192.168.35.160", 8000).sentinel("192.168.35.160", 8001).sentinel("192.168.35.160", 8002);
+            .sentinel("211.49.172.81", 27000).sentinel("211.49.172.81", 27001).sentinel("211.49.172.81", 27002);
     JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(sentinelConfig);
     jedisConnectionFactory.setPassword("mypassword");
     return jedisConnectionFactory;
@@ -40,7 +38,7 @@ public class RedisCacheConfig {
 //  @Bean
 //  public RedisConnectionFactory jedisConnectionFactory() {
 //    JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-//    jedisConnectionFactory.setHostName("192.168.35.160");
+//    jedisConnectionFactory.setHostName("211.49.172.81");
 //    jedisConnectionFactory.setPort(7000);
 //    jedisConnectionFactory.setPassword("mypassword");
 //    return jedisConnectionFactory;

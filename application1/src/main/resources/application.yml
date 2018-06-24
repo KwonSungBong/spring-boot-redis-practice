@@ -3,9 +3,6 @@ server.port: 9001
 redis.pwd: mypassword
 redis.master: mymaster
 
-sentinel.monitor1: 192.168.35.160:8000
-sentinel.monitor2: 192.168.35.160:8001
-sentinel.monitor3: 192.168.35.160:8002
-#sentinel.monitor1: 58.120.202.172:8000
-#sentinel.monitor2: 58.120.202.172:8001
-#sentinel.monitor3: 58.120.202.172:8002
+sentinel.monitor1: 211.49.172.81:27000
+sentinel.monitor2: 211.49.172.81:27001
+sentinel.monitor3: 211.49.172.81:27002
