@@ -8,3 +8,4 @@ https://medium.com/@smoothed9/redis-sorted-sets-with-spring-boot-and-jedis-f44c7
 https://github.com/smoothed9/redis-sortedsets
 
 
+http://wiki.pchero21.com/wiki/Redis
